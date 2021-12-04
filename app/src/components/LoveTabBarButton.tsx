@@ -12,13 +12,13 @@ export default function LoveTabBarButton(props: BottomTabBarButtonProps) {
 
 const styles = StyleSheet.create({
   touchContaienr: {
-    top: -24,
+    top: -18,
     justifyContent: 'center',
     alignItems: 'center',
   },
   viewContainer: {
-    width: 64,
-    height: 64,
+    width: 86,
+    height: 86,
     backgroundColor: '#b87cd9',
     borderRadius: 64,
   },

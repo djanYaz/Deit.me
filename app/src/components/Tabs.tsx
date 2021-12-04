@@ -53,6 +53,7 @@ export default function Tabs() {
               name="heart"
               color="white"
               solid={props.focused}
+              size={32}
             />
           ),
           tabBarButton: LoveTabBarButton,
