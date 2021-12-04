@@ -12,6 +12,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Messages from './src/screens/Messages';
 import Profile from './src/screens/Profile';
 import LoveTabBarButton from './src/components/LoveTabBarButton';
+import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 const Tab = createBottomTabNavigator<RootTabParamList>();
@@ -47,11 +48,20 @@ const Tabs = () => {
           borderColor: 'white',
         },
       }}>
-      <Tab.Screen name="Main" component={Main} />
+      <Tab.Screen name="Messages" component={Messages} />
       <Tab.Screen
-        name="Messages"
-        component={Messages}
+        name="Main"
+        component={Main}
         options={{
+          tabBarLabel: _props => null,
+          tabBarIcon: props => (
+            <FontAwesome5Icon
+              {...props}
+              name="heart"
+              color="white"
+              solid={props.focused}
+            />
+          ),
           tabBarButton: LoveTabBarButton,
         }}
       />

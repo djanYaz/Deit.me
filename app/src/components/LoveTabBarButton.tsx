@@ -12,7 +12,7 @@ export default function LoveTabBarButton(props: BottomTabBarButtonProps) {
 
 const styles = StyleSheet.create({
   touchContaienr: {
-    top: -32,
+    top: -24,
     justifyContent: 'center',
     alignItems: 'center',
   },
