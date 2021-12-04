@@ -3,6 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { navigationRef, RootStackParamList } from './src/rootNavigation';
 import Register from './src/screens/Register';
+import Main from './src/screens/Main';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -14,6 +15,7 @@ const Screens = () => {
         headerShown: false,
       }}>
       <Stack.Screen name="Register" component={Register} />
+      <Stack.Screen name="Main" component={Main} />
     </Stack.Navigator>
   );
 };
