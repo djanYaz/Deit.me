@@ -37,6 +37,7 @@ export default function ProfileCard(props: ProfileCardProps) {
       useNativeDriver: true,
       toValue: 1,
     }).start();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   //
 
