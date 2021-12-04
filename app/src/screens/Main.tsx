@@ -1,18 +1,21 @@
 import React from 'react';
-import { StyleSheet, Text } from 'react-native';
+import { StyleSheet } from 'react-native';
+import ProfileCard from '../components/ProfileCard';
 import ScreenView from '../components/ScreenView';
 
 export default function Main() {
   return (
     <ScreenView style={styles.container}>
-      <Text style={{ color: 'black', fontSize: 32 }}>Main screen</Text>
+      <ProfileCard />
     </ScreenView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    justifyContent: 'center',
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
     alignItems: 'center',
+    paddingTop: 32,
   },
 });
