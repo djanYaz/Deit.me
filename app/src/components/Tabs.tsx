@@ -17,7 +17,7 @@ export default function Tabs() {
           bottom: 16,
           left: 16,
           right: 16,
-          borderRadius: 32,
+          borderRadius: 18,
           elevation: 5,
           backgroundColor: 'white',
           borderWidth: 0,
