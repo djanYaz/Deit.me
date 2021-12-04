@@ -1,8 +1,11 @@
 import React, { useEffect, useRef } from 'react';
-import { Animated, Dimensions, Easing, StyleSheet, Text } from 'react-native';
+import { Animated, Dimensions, Easing, StyleSheet } from 'react-native';
 import { defaultShadow } from '../constants';
 import { TabHeight } from './Tabs';
 import Interactable from 'react-native-interactable';
+import ProfileCardContent, {
+  ProfileCardContentProps,
+} from './ProfileCardContent';
 
 const WindowHeight = Dimensions.get('screen').height;
 const WindowWidth = Dimensions.get('screen').width;
@@ -10,8 +13,7 @@ const BottomMargin = 100;
 
 const defaultTimeouot = 150;
 type DiscardDirection = 'left' | 'right' | 'center';
-export interface ProfileCardProps {
-  name: string;
+export interface ProfileCardProps extends ProfileCardContentProps {
   onDiscard?: () => void;
   timeoutOnDiscard?: number;
 }
@@ -81,7 +83,7 @@ export default function ProfileCard(props: ProfileCardProps) {
             transform: [{ rotate: rotation }, { scale }],
           },
         ]}>
-        <Text style={styles.title}>{props.name}</Text>
+        <ProfileCardContent {...(props as ProfileCardContentProps)} />
       </Animated.View>
     </Interactable.View>
   );
@@ -95,13 +97,10 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    width: '80%',
+    width: '90%',
+    overflow: 'hidden',
     backgroundColor: 'white',
     borderRadius: 10,
     ...defaultShadow,
-  },
-  title: {
-    fontSize: 36,
-    color: 'black',
   },
 });
