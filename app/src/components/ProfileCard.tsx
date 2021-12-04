@@ -57,7 +57,10 @@ export default function ProfileCard(props: ProfileCardProps) {
 
   return (
     <Interactable.View
-      style={styles.interactableContainer}
+      style={{
+        height: WindowHeight - TabHeight - BottomMargin,
+        ...styles.interactableContainer,
+      }}
       animatedNativeDriver={true}
       snapPoints={snapPoints}
       animatedValueX={deltaX}
@@ -89,7 +92,6 @@ const styles = StyleSheet.create({
     width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
-    height: WindowHeight - TabHeight - BottomMargin,
   },
   container: {
     flex: 1,
