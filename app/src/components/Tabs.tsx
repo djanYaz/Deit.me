@@ -18,12 +18,19 @@ export default function Tabs() {
           left: 16,
           right: 16,
           borderRadius: 32,
-          elevation: 32,
+          elevation: 5,
           backgroundColor: 'white',
           borderWidth: 0,
           borderColor: 'white',
           height: 64,
           paddingBottom: 8,
+          shadowColor: '#7f5df0',
+          shadowOffset: {
+            width: 0,
+            height: 10,
+          },
+          shadowOpacity: 0.25,
+          shadowRadius: 3.5,
         },
       }}>
       <Tab.Screen
