@@ -11,6 +11,7 @@ import Main from './src/screens/Main';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Messages from './src/screens/Messages';
 import Profile from './src/screens/Profile';
+import LoveTabBarButton from './src/components/LoveTabBarButton';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 const Tab = createBottomTabNavigator<RootTabParamList>();
@@ -34,9 +35,26 @@ const Tabs = () => {
       screenOptions={{
         headerShown: false,
         tabBarActiveTintColor: '#b87cd9',
+        tabBarStyle: {
+          position: 'absolute',
+          bottom: 16,
+          left: 16,
+          right: 16,
+          borderRadius: 32,
+          elevation: 32,
+          backgroundColor: 'white',
+          borderWidth: 0,
+          borderColor: 'white',
+        },
       }}>
       <Tab.Screen name="Main" component={Main} />
-      <Tab.Screen name="Messages" component={Messages} />
+      <Tab.Screen
+        name="Messages"
+        component={Messages}
+        options={{
+          tabBarButton: LoveTabBarButton,
+        }}
+      />
       <Tab.Screen name="Profile" component={Profile} />
     </Tab.Navigator>
   );
