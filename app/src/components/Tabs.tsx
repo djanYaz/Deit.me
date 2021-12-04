@@ -39,11 +39,11 @@ export default function Tabs() {
         },
       }}>
       <Tab.Screen
-        name="Messages"
-        component={Messages}
+        name="Profile"
+        component={Profile}
         options={{
           tabBarIcon: props => (
-            <FontAwesome5Icon {...props} name="comment" solid={props.focused} />
+            <FontAwesome5Icon {...props} name="user" solid={props.focused} />
           ),
         }}
       />
@@ -65,11 +65,11 @@ export default function Tabs() {
         }}
       />
       <Tab.Screen
-        name="Profile"
-        component={Profile}
+        name="Messages"
+        component={Messages}
         options={{
           tabBarIcon: props => (
-            <FontAwesome5Icon {...props} name="user" solid={props.focused} />
+            <FontAwesome5Icon {...props} name="comment" solid={props.focused} />
           ),
         }}
       />
