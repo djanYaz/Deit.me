@@ -1,1 +1,0 @@
-# Deit.me Mobile App
