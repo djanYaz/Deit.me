@@ -3,8 +3,12 @@ import { StyleSheet } from 'react-native';
 import CustomButton from '../components/CustomButton';
 import ScreenView from '../components/ScreenView';
 import CustomTextInput from '../components/CustomTextInput';
+import rootNavigation from '../rootNavigation';
 
 export default function Register() {
+  function handleRegister() {
+    rootNavigation.reset('Main');
+  }
   return (
     <ScreenView style={styles.container}>
       <CustomTextInput placeholder="email" />
@@ -13,7 +17,7 @@ export default function Register() {
         textContentType="password"
         secureTextEntry
       />
-      <CustomButton title="Register" />
+      <CustomButton title="Register" onPress={handleRegister} />
     </ScreenView>
   );
 }

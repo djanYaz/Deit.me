@@ -3,10 +3,18 @@ import { StackActions } from '@react-navigation/native';
 
 export type RootStackParamList = {
   Register: any;
+  Login: any;
   Main: any;
 };
 
-export type RootNavigationScreen = keyof RootStackParamList;
+export type RootTabParamList = {
+  Main: any;
+  Messages: any;
+  Profile: any;
+};
+
+export type RootNavigationScreen = keyof RootStackParamList &
+  keyof RootTabParamList;
 
 export const navigationRef = createNavigationContainerRef<RootStackParamList>();
 
