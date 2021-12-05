@@ -40,8 +40,9 @@ export default function ProfileCardContent(props: ProfileCardContentProps) {
   }
 
   function renderDescription() {
+    const paddingBottom = TabHeight + 20;
     return (
-      <Text style={[styles.subtitle, styles.description]}>
+      <Text style={[styles.subtitle, { paddingBottom }]}>
         {props.description}
       </Text>
     );
@@ -83,9 +84,6 @@ const styles = StyleSheet.create({
   subtitle: {
     fontSize: 20,
     color: 'black',
-  },
-  description: {
-    paddingBottom: TabHeight + 20,
   },
   textContainer: {
     flex: 1,
