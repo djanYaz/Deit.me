@@ -9,11 +9,13 @@ export interface CircleButtonIconProps {
   size?: number;
   tintColor: string;
   style?: ViewStyle;
+  onPress?: () => void;
 }
 export default function CircleButtonIcon(props: CircleButtonIconProps) {
   const size = props.size || defaultSize;
   return (
     <TouchableOpacity
+      onPressOut={props.onPress}
       style={[styles.container, { height: size, width: size }, props.style]}>
       <FontAwesome5Icon
         size={size * 0.8}

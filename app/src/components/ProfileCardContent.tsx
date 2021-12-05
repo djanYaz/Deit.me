@@ -8,6 +8,8 @@ export interface ProfileCardContentProps {
   age: number;
   description: string;
   location: string;
+  onLike?: () => void;
+  onDislike?: () => void;
 }
 export default function ProfileCardContent(props: ProfileCardContentProps) {
   return (
@@ -29,8 +31,16 @@ export default function ProfileCardContent(props: ProfileCardContentProps) {
         </Text>
       </View>
       <View style={styles.buttonContainer}>
-        <CircleButtonIcon iconName="heart" tintColor="#f50a4d" />
-        <CircleButtonIcon iconName="times" tintColor="black" />
+        <CircleButtonIcon
+          iconName="heart"
+          tintColor="#f50a4d"
+          onPress={props.onLike}
+        />
+        <CircleButtonIcon
+          iconName="times"
+          tintColor="black"
+          onPress={props.onDislike}
+        />
       </View>
     </View>
   );

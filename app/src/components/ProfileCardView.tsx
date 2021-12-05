@@ -14,7 +14,7 @@ const BottomMargin = 100;
 const defaultTimeouot = 150;
 type DiscardDirection = 'left' | 'right' | 'center';
 export interface ProfileCardProps extends ProfileCardContentProps {
-  onSwipe?: () => void;
+  onSwipe?: (direction: DiscardDirection) => void;
   timeoutOnDiscard?: number;
 }
 export default function ProfileCardView(props: ProfileCardProps) {
@@ -45,15 +45,32 @@ export default function ProfileCardView(props: ProfileCardProps) {
 
   const deltaX = useRef(new Animated.Value(0)).current;
   const deltaY = useRef(new Animated.Value(0)).current;
+  var cardRef = useRef<any>().current;
 
   const rotation = deltaX.interpolate({
     inputRange: inputRanges,
     outputRange: ['-40deg', '0deg', '40deg'],
   });
 
-  function handleDiscard() {
+  function handleLike() {
+    console.log('handle like');
+    if (cardRef) {
+      cardRef.snapTo({ index: 2 });
+    }
+  }
+
+  function handleDislike() {
+    if (cardRef) {
+      cardRef.snapTo({ index: 0 });
+    }
+  }
+
+  function handleDiscard(direction: DiscardDirection) {
     if (props.onSwipe) {
-      setTimeout(props.onSwipe, props.timeoutOnDiscard || defaultTimeouot);
+      setTimeout(
+        () => props.onSwipe && props.onSwipe(direction),
+        props.timeoutOnDiscard || defaultTimeouot,
+      );
     }
   }
 
@@ -63,6 +80,7 @@ export default function ProfileCardView(props: ProfileCardProps) {
         height: WindowHeight - TabHeight - BottomMargin,
         ...styles.interactableContainer,
       }}
+      ref={ref => (cardRef = ref)}
       animatedNativeDriver={true}
       snapPoints={snapPoints}
       animatedValueX={deltaX}
@@ -73,7 +91,7 @@ export default function ProfileCardView(props: ProfileCardProps) {
       onSnap={(event: Interactable.ISnapEvent) => {
         const snapDirection = event.nativeEvent.id as DiscardDirection;
         if (snapDirection !== 'center') {
-          handleDiscard();
+          handleDiscard(snapDirection);
         }
       }}>
       <Animated.View
@@ -83,7 +101,11 @@ export default function ProfileCardView(props: ProfileCardProps) {
             transform: [{ rotate: rotation }, { scale }],
           },
         ]}>
-        <ProfileCardContent {...(props as ProfileCardContentProps)} />
+        <ProfileCardContent
+          {...(props as ProfileCardContentProps)}
+          onLike={handleLike}
+          onDislike={handleDislike}
+        />
       </Animated.View>
     </Interactable.View>
   );
