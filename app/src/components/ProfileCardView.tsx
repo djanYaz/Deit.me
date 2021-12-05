@@ -112,7 +112,7 @@ export default function ProfileCardView(props: ProfileCardProps) {
         }}>
         <FontAwesome5Icon
           size={64}
-          style={{ width: 64, height: 64 }}
+          style={styles.icon}
           name="heart"
           color="black"
           solid
@@ -137,7 +137,7 @@ export default function ProfileCardView(props: ProfileCardProps) {
           transform: [{ scale: iconScale }],
         }}>
         <FontAwesome5Icon
-          style={{ width: 64, height: 64 }}
+          style={styles.icon}
           size={64}
           name="times"
           color="black"
@@ -162,6 +162,7 @@ const styles = StyleSheet.create({
     marginRight: -48,
     marginLeft: 0,
   },
+  icon: { width: 64, height: 64 },
   container: {
     flex: 1,
     width: '90%',
