@@ -14,11 +14,9 @@ const WindowHeight = Dimensions.get('screen').height;
 const WindowWidth = Dimensions.get('screen').width;
 const BottomMargin = 150;
 
-const defaultTimeouot = 100;
 type DiscardDirection = 'left' | 'right' | 'center';
 export interface ProfileCardProps extends ProfileCardContentProps {
   onSwipe?: (direction: DiscardDirection) => void;
-  timeoutOnDiscard?: number;
 }
 export default function ProfileCardView(props: ProfileCardProps) {
   const containerHeight = WindowHeight - TabHeight - BottomMargin;
@@ -82,10 +80,7 @@ export default function ProfileCardView(props: ProfileCardProps) {
   function handleDiscard(direction: DiscardDirection) {
     FastVibrate();
     if (props.onSwipe) {
-      setTimeout(
-        () => props.onSwipe && props.onSwipe(direction),
-        props.timeoutOnDiscard || defaultTimeouot,
-      );
+      props.onSwipe(direction);
     }
   }
   // Runtime stylization
