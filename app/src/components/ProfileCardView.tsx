@@ -62,7 +62,7 @@ export default function ProfileCardView(props: ProfileCardProps) {
 
   const iconScale = deltaX.interpolate({
     inputRange: inputRanges,
-    outputRange: [3, 0, 3],
+    outputRange: [2, 0, 2],
   });
 
   function handleLike() {
@@ -162,7 +162,7 @@ export default function ProfileCardView(props: ProfileCardProps) {
         }}>
         <FontAwesome5Icon
           style={styles.icon}
-          size={64}
+          size={100}
           name="times"
           color="black"
         />
@@ -178,7 +178,7 @@ export default function ProfileCardView(props: ProfileCardProps) {
           transform: [{ scale: iconScale }],
         }}>
         <FontAwesome5Icon
-          size={64}
+          size={100}
           style={styles.icon}
           name="heart"
           color="#f50a4d"
@@ -197,14 +197,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   likeHelperIcon: {
-    marginLeft: -48,
+    marginLeft: -86,
     marginRight: 0,
   },
   dislikeHelperIcon: {
-    marginRight: -48,
+    marginRight: -86,
     marginLeft: 0,
   },
-  icon: { width: 64, height: 64 },
+  icon: { width: 100, height: 100 },
   container: {
     flex: 1,
     width: '90%',
