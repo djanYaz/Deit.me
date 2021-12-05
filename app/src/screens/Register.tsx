@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import CustomButton from '../components/CustomButton';
 import ScreenView from '../components/ScreenView';
-import CustomTextInput from '../components/CustomTextInput';
+import CustomTextInput from '../components/TextInput';
 import rootNavigation from '../rootNavigation';
 
 export default function Register() {

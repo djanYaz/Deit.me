@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Animated, Dimensions, Easing, StyleSheet } from 'react-native';
 import { defaultShadow } from '../constants';
 import { TabHeight } from './Tabs';
@@ -7,6 +7,7 @@ import ProfileCardContent, {
   ProfileCardContentProps,
 } from './ProfileCardContent';
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
+import Icon from './Icon';
 
 const WindowHeight = Dimensions.get('screen').height;
 const WindowWidth = Dimensions.get('screen').width;
@@ -48,6 +49,7 @@ export default function ProfileCardView(props: ProfileCardProps) {
   const deltaX = useRef(new Animated.Value(0)).current;
   const deltaY = useRef(new Animated.Value(0)).current;
   var cardRef = useRef<any>().current;
+  const [viewType, setViewType] = useState<'card' | 'page'>('card');
 
   const rotation = deltaX.interpolate({
     inputRange: inputRanges,
@@ -79,11 +81,15 @@ export default function ProfileCardView(props: ProfileCardProps) {
       );
     }
   }
-
+  // Runtime stylization
+  const runtimeStyle = {
+    height: viewType === 'card' ? containerHeight : '100%',
+    marginBottom: viewType === 'card' ? TabHeight : undefined,
+  };
   return (
     <Interactable.View
       style={{
-        height: containerHeight,
+        ...runtimeStyle,
         ...styles.interactableContainer,
       }}
       ref={ref => (cardRef = ref)}
@@ -91,6 +97,8 @@ export default function ProfileCardView(props: ProfileCardProps) {
       snapPoints={snapPoints}
       animatedValueX={deltaX}
       animatedValueY={deltaY}
+      horizontalOnly={viewType === 'page'}
+      dragEnabled={viewType === 'card'}
       gravityPoints={[
         {
           x: 0,
@@ -106,6 +114,62 @@ export default function ProfileCardView(props: ProfileCardProps) {
           handleDiscard(snapDirection);
         }
       }}>
+      {viewType === 'card' && renderLikeInfoIcon()}
+      <Animated.View
+        style={[
+          styles.container,
+          {
+            transform: [{ rotate: rotation }, { scale }],
+          },
+        ]}>
+        <ProfileCardContent
+          {...(props as ProfileCardContentProps)}
+          key="card-content"
+          onPress={() => setViewType(viewType === 'page' ? 'card' : 'page')}
+          onLike={handleLike}
+          onDislike={handleDislike}
+          showButtons={viewType === 'card'}
+          showDescription={viewType === 'page'}
+        />
+      </Animated.View>
+      {viewType === 'card' && renderDislikeInfoIcon()}
+      {viewType === 'page' && renderCloseIcon()}
+    </Interactable.View>
+  );
+
+  function renderCloseIcon() {
+    return (
+      <Icon
+        name="times"
+        style={{
+          position: 'absolute',
+          left: 10,
+          top: 0,
+        }}
+        onPress={() => setViewType('card')}
+      />
+    );
+  }
+
+  function renderDislikeInfoIcon() {
+    return (
+      <Animated.View
+        style={{
+          ...styles.dislikeHelperIcon,
+          transform: [{ scale: iconScale }],
+        }}>
+        <FontAwesome5Icon
+          style={styles.icon}
+          size={64}
+          name="times"
+          color="black"
+        />
+      </Animated.View>
+    );
+  }
+
+  function renderLikeInfoIcon() {
+    return (
       <Animated.View
         style={{
           ...styles.likeHelperIcon,
@@ -119,40 +183,15 @@ export default function ProfileCardView(props: ProfileCardProps) {
           solid
         />
       </Animated.View>
-      <Animated.View
-        style={[
-          styles.container,
-          {
-            transform: [{ rotate: rotation }, { scale }],
-          },
-        ]}>
-        <ProfileCardContent
-          {...(props as ProfileCardContentProps)}
-          onLike={handleLike}
-          onDislike={handleDislike}
-        />
-      </Animated.View>
-      <Animated.View
-        style={{
-          ...styles.dislikeHelperIcon,
-          transform: [{ scale: iconScale }],
-        }}>
-        <FontAwesome5Icon
-          style={styles.icon}
-          size={64}
-          name="times"
-          color="black"
-        />
-      </Animated.View>
-    </Interactable.View>
-  );
+    );
+  }
 }
 
 const styles = StyleSheet.create({
   interactableContainer: {
     width: '100%',
-    justifyContent: 'center',
-    alignItems: 'center',
+    // justifyContent: 'flex-start',
+    // alignItems: 'flex-start',
     flexDirection: 'row',
   },
   likeHelperIcon: {

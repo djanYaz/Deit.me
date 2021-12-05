@@ -63,7 +63,7 @@ export default function Main() {
   function renderProfiles() {
     const profile = profiles[profileIndex];
     return (
-      <ProfileCard key={profileIndex} onSwipe={handleDiscard} {...profile} />
+      <ProfileCard key={Date.now()} onSwipe={handleDiscard} {...profile} />
     );
   }
   return <ScreenView style={styles.container}>{renderProfiles()}</ScreenView>;
@@ -72,8 +72,8 @@ export default function Main() {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'column',
-    justifyContent: 'flex-start',
+    justifyContent: 'center',
     alignItems: 'center',
-    paddingTop: 32,
+    // paddingTop: 32,
   },
 });
