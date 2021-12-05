@@ -179,7 +179,7 @@ export default function ProfileCardView(props: ProfileCardProps) {
           size={64}
           style={styles.icon}
           name="heart"
-          color="black"
+          color="#f50a4d"
           solid
         />
       </Animated.View>
