@@ -14,7 +14,7 @@ const BottomMargin = 100;
 const defaultTimeouot = 150;
 type DiscardDirection = 'left' | 'right' | 'center';
 export interface ProfileCardProps extends ProfileCardContentProps {
-  onDiscard?: () => void;
+  onSwipe?: () => void;
   timeoutOnDiscard?: number;
 }
 export default function ProfileCard(props: ProfileCardProps) {
@@ -52,8 +52,8 @@ export default function ProfileCard(props: ProfileCardProps) {
   });
 
   function handleDiscard() {
-    if (props.onDiscard) {
-      setTimeout(props.onDiscard, props.timeoutOnDiscard || defaultTimeouot);
+    if (props.onSwipe) {
+      setTimeout(props.onSwipe, props.timeoutOnDiscard || defaultTimeouot);
     }
   }
 
