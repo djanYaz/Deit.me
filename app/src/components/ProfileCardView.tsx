@@ -94,9 +94,9 @@ export default function ProfileCardView(props: ProfileCardProps) {
         {
           x: 0,
           y: 0,
-          strength: 7000,
+          strength: 2000,
           falloff: 40,
-          damping: 0.5,
+          damping: 1,
         },
       ]}
       onSnap={(event: Interactable.ISnapEvent) => {
