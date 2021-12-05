@@ -6,4 +6,5 @@ export const defaultShadow = {
   },
   shadowOpacity: 0.25,
   shadowRadius: 3.5,
+  elevation: 5,
 };
