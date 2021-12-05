@@ -52,8 +52,10 @@ export default function ProfileCardView(props: ProfileCardProps) {
 
   // Vibrate on change of view type
   useEffect(() => {
-    FastVibrate();
-  }, [viewType]);
+    setTimeout(_ => {
+      FastVibrate();
+    }, 50);
+  }, []);
 
   const rotation = deltaX.interpolate({
     inputRange: inputRanges,
@@ -127,7 +129,10 @@ export default function ProfileCardView(props: ProfileCardProps) {
         <ProfileCardContent
           {...(props as ProfileCardContentProps)}
           key="card-content"
-          onPress={() => setViewType(viewType === 'page' ? 'card' : 'page')}
+          onPress={() => {
+            FastVibrate();
+            setViewType(viewType === 'page' ? 'card' : 'page');
+          }}
           onLike={handleLike}
           onDislike={handleDislike}
           showButtons={viewType === 'card'}
@@ -148,7 +153,10 @@ export default function ProfileCardView(props: ProfileCardProps) {
           left: 10,
           top: 0,
         }}
-        onPress={() => setViewType('card')}
+        onPress={() => {
+          FastVibrate();
+          setViewType('card');
+        }}
       />
     );
   }
