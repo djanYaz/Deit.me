@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { preloadImages } from '../utils';
 import CircleButtonIcon from './CircleButtonIcon';
 import TapImageCorousel from './TapImageCarousel';
 
@@ -14,30 +13,9 @@ export interface ProfileCardContentProps {
   onDislike?: () => void;
 }
 export default function ProfileCardContent(props: ProfileCardContentProps) {
-  const [currentPictureIndex, setCurrentPictureIndex] = useState(0);
-  const currentPicture = props.pictures[currentPictureIndex];
-
-  //Preload images
-  useEffect(() => {
-    preloadImages(props.pictures);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-  //
-
-  function handleToggleOfPictures() {
-    const index = currentPictureIndex + 1;
-    if (index >= props.pictures.length) {
-      setCurrentPictureIndex(0);
-    } else {
-      setCurrentPictureIndex(index);
-    }
-  }
   return (
     <View style={styles.container}>
-      <TapImageCorousel
-        onPress={handleToggleOfPictures}
-        imageUrl={currentPicture}
-      />
+      <TapImageCorousel imageUrls={props.pictures} />
       <View style={styles.textContainer}>
         <Text style={styles.name}>
           {props.name}
