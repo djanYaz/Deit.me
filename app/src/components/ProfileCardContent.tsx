@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
-import { Image, StyleSheet, Text, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import { preloadImages } from '../utils';
 import CircleButtonIcon from './CircleButtonIcon';
+import TapImageCorousel from './TapImageCarousel';
 
 export interface ProfileCardContentProps {
   name: string;
@@ -14,6 +16,14 @@ export interface ProfileCardContentProps {
 export default function ProfileCardContent(props: ProfileCardContentProps) {
   const [currentPictureIndex, setCurrentPictureIndex] = useState(0);
   const currentPicture = props.pictures[currentPictureIndex];
+
+  //Preload images
+  useEffect(() => {
+    preloadImages(props.pictures);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  //
+
   function handleToggleOfPictures() {
     const index = currentPictureIndex + 1;
     if (index >= props.pictures.length) {
@@ -24,13 +34,10 @@ export default function ProfileCardContent(props: ProfileCardContentProps) {
   }
   return (
     <View style={styles.container}>
-      <View onTouchStart={handleToggleOfPictures}>
-        <Image
-          style={styles.image}
-          resizeMode="cover"
-          source={{ uri: currentPicture }}
-        />
-      </View>
+      <TapImageCorousel
+        onPress={handleToggleOfPictures}
+        imageUrl={currentPicture}
+      />
       <View style={styles.textContainer}>
         <Text style={styles.name}>
           {props.name}
@@ -83,11 +90,6 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     paddingVertical: 24,
     paddingHorizontal: 32,
-  },
-  image: {
-    width: '100%',
-    height: undefined,
-    aspectRatio: 1,
   },
   container: {
     flex: 1,
