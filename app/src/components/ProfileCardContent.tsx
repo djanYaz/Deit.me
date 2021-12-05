@@ -10,11 +10,13 @@ export interface ProfileCardContentProps {
   age: number;
   description: string;
   location: string;
+  hobbies: string[];
   onLike?: () => void;
   onDislike?: () => void;
   onPress?: () => void;
   showButtons?: boolean;
   showDescription?: boolean;
+  showHobies?: boolean;
 }
 export default function ProfileCardContent(props: ProfileCardContentProps) {
   function renderButtonContainer() {
@@ -48,6 +50,20 @@ export default function ProfileCardContent(props: ProfileCardContentProps) {
     );
   }
 
+  function renderHobby(name: string) {
+    return <Text style={styles.hobby}>{name}</Text>;
+  }
+
+  function renderHobbies() {
+    return (
+      <View style={styles.hobbyContainer}>
+        {props.hobbies.map(hobby => {
+          return renderHobby(hobby);
+        })}
+      </View>
+    );
+  }
+
   const showButtons =
     props.showButtons === undefined ? true : props.showButtons;
   return (
@@ -58,7 +74,7 @@ export default function ProfileCardContent(props: ProfileCardContentProps) {
           {props.name}
           <Text style={styles.age}>, {props.age}</Text>
         </Text>
-
+        {props.showHobies && renderHobbies()}
         <Text style={[styles.subtitle, styles.location]}>{props.location}</Text>
         {props.showDescription && renderDescription()}
       </View>
@@ -106,5 +122,21 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     margin: 12,
+  },
+  hobby: {
+    color: 'white',
+    textAlign: 'center',
+    borderRadius: 32,
+    fontSize: 16,
+    backgroundColor: '#b87cd9',
+    paddingVertical: 2,
+    paddingHorizontal: 8,
+    margin: 1,
+  },
+  hobbyContainer: {
+    flexDirection: 'row',
+    width: '100%',
+    flexWrap: 'wrap',
+    justifyContent: 'flex-start',
   },
 });

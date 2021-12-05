@@ -137,6 +137,7 @@ export default function ProfileCardView(props: ProfileCardProps) {
           onDislike={handleDislike}
           showButtons={viewType === 'card'}
           showDescription={viewType === 'page'}
+          showHobies={viewType === 'page'}
         />
       </Animated.View>
       {viewType === 'card' && renderDislikeInfoIcon()}

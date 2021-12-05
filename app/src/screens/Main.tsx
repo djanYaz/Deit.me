@@ -6,6 +6,7 @@ import ScreenView from '../components/ScreenView';
 const profiles: ProfileCardProps[] = [
   {
     name: 'Rado1',
+    hobbies: ['MMA', 'Cross', 'Box', 'Macki', 'BMW'],
     pictures: [
       'https://scontent.fsof8-1.fna.fbcdn.net/v/t1.18169-9/13179355_1095391040502845_7910805570223620117_n.jpg?_nc_cat=103&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=boXg4MXsjxMAX_pOImy&tn=gZeu5a1OuMqe3Zvr&_nc_ht=scontent.fsof8-1.fna&oh=3260a330ec2b82ce2736ae959292693b&oe=61D0BF98&h=' +
         Date.now(),
@@ -31,6 +32,7 @@ const profiles: ProfileCardProps[] = [
   },
   {
     name: 'Rado2',
+    hobbies: ['BMW', 'Macki', 'Cici', 'Dupe'],
     pictures: [
       'https://scontent.fsof8-1.fna.fbcdn.net/v/t1.18169-9/19224908_755787631265215_2553944708361710059_n.jpg?_nc_cat=102&ccb=1-5&_nc_sid=8bfeb9&_nc_ohc=ZCdMNLldJ1cAX_i7n3i&tn=gZeu5a1OuMqe3Zvr&_nc_ht=scontent.fsof8-1.fna&oh=551c8ce01c23dbd8d772a5c552014fc8&oe=61D1A0C3&h=' +
         Date.now(),
