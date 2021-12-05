@@ -148,11 +148,7 @@ export default function ProfileCardView(props: ProfileCardProps) {
     return (
       <Icon
         name="times"
-        style={{
-          position: 'absolute',
-          left: 10,
-          top: 0,
-        }}
+        style={styles.closeIcon}
         onPress={() => {
           FastVibrate();
           setViewType('card');
@@ -220,5 +216,10 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 10,
     ...defaultShadow,
+  },
+  closeIcon: {
+    position: 'absolute',
+    left: 10,
+    top: 0,
   },
 });

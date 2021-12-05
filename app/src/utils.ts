@@ -23,5 +23,5 @@ export async function preloadImages(urlOfImages: string[]) {
 }
 
 export function FastVibrate() {
-  Vibration.vibrate(10);
+  Vibration.vibrate(5);
 }

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { GestureResponderEvent, Image, StyleSheet, View } from 'react-native';
-import { preloadImages } from '../utils';
+import { FastVibrate, preloadImages } from '../utils';
 
 export interface TapImageCorouselProps {
   imageUrls: string[];
@@ -18,6 +18,7 @@ export default function TapImageCorousel(props: TapImageCorouselProps) {
 
   function handleToggleOfPictures(e: GestureResponderEvent) {
     e.stopPropagation();
+    FastVibrate();
     const index = currentPictureIndex + 1;
     if (index >= props.imageUrls.length) {
       setCurrentPictureIndex(0);
