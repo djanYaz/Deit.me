@@ -8,6 +8,7 @@ import ProfileCardContent, {
 } from './ProfileCardContent';
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 import Icon from './Icon';
+import { FastVibrate } from '../utils';
 
 const WindowHeight = Dimensions.get('screen').height;
 const WindowWidth = Dimensions.get('screen').width;
@@ -51,6 +52,11 @@ export default function ProfileCardView(props: ProfileCardProps) {
   var cardRef = useRef<any>().current;
   const [viewType, setViewType] = useState<'card' | 'page'>('card');
 
+  // Vibrate on change of view type
+  useEffect(() => {
+    FastVibrate();
+  }, [viewType]);
+
   const rotation = deltaX.interpolate({
     inputRange: inputRanges,
     outputRange: ['-40deg', '0deg', '40deg'],
@@ -74,6 +80,7 @@ export default function ProfileCardView(props: ProfileCardProps) {
   }
 
   function handleDiscard(direction: DiscardDirection) {
+    FastVibrate();
     if (props.onSwipe) {
       setTimeout(
         () => props.onSwipe && props.onSwipe(direction),

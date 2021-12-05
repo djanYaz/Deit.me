@@ -1,4 +1,4 @@
-import { Image } from 'react-native';
+import { Image, Vibration } from 'react-native';
 
 export async function preloadImages(urlOfImages: string[]) {
   // an array of urls of images
@@ -20,4 +20,8 @@ export async function preloadImages(urlOfImages: string[]) {
     } catch (e) {}
   });
   return downloadedAll;
+}
+
+export function FastVibrate() {
+  Vibration.vibrate(10);
 }
