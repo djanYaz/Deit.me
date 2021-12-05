@@ -23,9 +23,9 @@ export default function ProfileCardContent(props: ProfileCardContentProps) {
         </Text>
 
         <Text style={[styles.subtitle, styles.location]}>{props.location}</Text>
-        <Text style={styles.subtitle} numberOfLines={4}>
+        {/* <Text style={styles.subtitle} numberOfLines={4}>
           {props.description}
-        </Text>
+        </Text> */}
       </View>
       <View style={styles.buttonContainer}>
         <CircleButtonIcon
@@ -45,12 +45,12 @@ export default function ProfileCardContent(props: ProfileCardContentProps) {
 
 const styles = StyleSheet.create({
   name: {
-    fontSize: 26,
+    fontSize: 32,
     fontWeight: 'bold',
     color: 'black',
   },
   age: {
-    fontSize: 26,
+    fontSize: 32,
     fontWeight: 'normal',
     color: '#404040',
   },
@@ -68,6 +68,7 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     paddingVertical: 24,
     paddingHorizontal: 32,
+    width: '100%',
   },
   container: {
     flex: 1,

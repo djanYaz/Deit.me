@@ -10,7 +10,7 @@ import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 
 const WindowHeight = Dimensions.get('screen').height;
 const WindowWidth = Dimensions.get('screen').width;
-const BottomMargin = 100;
+const BottomMargin = 150;
 
 const defaultTimeouot = 100;
 type DiscardDirection = 'left' | 'right' | 'center';
@@ -19,6 +19,7 @@ export interface ProfileCardProps extends ProfileCardContentProps {
   timeoutOnDiscard?: number;
 }
 export default function ProfileCardView(props: ProfileCardProps) {
+  const containerHeight = WindowHeight - TabHeight - BottomMargin;
   const inputRanges = [
     -(WindowWidth + WindowWidth / 2),
     0,
@@ -82,7 +83,7 @@ export default function ProfileCardView(props: ProfileCardProps) {
   return (
     <Interactable.View
       style={{
-        height: WindowHeight - TabHeight - BottomMargin,
+        height: containerHeight,
         ...styles.interactableContainer,
       }}
       ref={ref => (cardRef = ref)}

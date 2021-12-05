@@ -3,7 +3,7 @@ import { StyleSheet, TouchableOpacity, ViewStyle } from 'react-native';
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 import { defaultShadow } from '../constants';
 
-const defaultSize = 64;
+const defaultSize = 86;
 export interface CircleButtonIconProps {
   iconName: string;
   size?: number;
@@ -28,7 +28,7 @@ export default function CircleButtonIcon(props: CircleButtonIconProps) {
 
 const styles = StyleSheet.create({
   container: {
-    borderRadius: 32,
+    borderRadius: 86,
     ...defaultShadow,
     backgroundColor: 'white',
     justifyContent: 'center',
