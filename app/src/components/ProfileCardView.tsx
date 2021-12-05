@@ -6,12 +6,13 @@ import Interactable from 'react-native-interactable';
 import ProfileCardContent, {
   ProfileCardContentProps,
 } from './ProfileCardContent';
+import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 
 const WindowHeight = Dimensions.get('screen').height;
 const WindowWidth = Dimensions.get('screen').width;
 const BottomMargin = 100;
 
-const defaultTimeouot = 150;
+const defaultTimeouot = 100;
 type DiscardDirection = 'left' | 'right' | 'center';
 export interface ProfileCardProps extends ProfileCardContentProps {
   onSwipe?: (direction: DiscardDirection) => void;
@@ -52,8 +53,12 @@ export default function ProfileCardView(props: ProfileCardProps) {
     outputRange: ['-40deg', '0deg', '40deg'],
   });
 
+  const iconScale = deltaX.interpolate({
+    inputRange: inputRanges,
+    outputRange: [3, 0, 3],
+  });
+
   function handleLike() {
-    console.log('handle like');
     if (cardRef) {
       cardRef.snapTo({ index: 2 });
     }
@@ -86,7 +91,13 @@ export default function ProfileCardView(props: ProfileCardProps) {
       animatedValueX={deltaX}
       animatedValueY={deltaY}
       gravityPoints={[
-        { x: 0, y: 0, strength: 7000, falloff: 40, damping: 0.5 },
+        {
+          x: 0,
+          y: 0,
+          strength: 7000,
+          falloff: 40,
+          damping: 0.5,
+        },
       ]}
       onSnap={(event: Interactable.ISnapEvent) => {
         const snapDirection = event.nativeEvent.id as DiscardDirection;
@@ -94,6 +105,19 @@ export default function ProfileCardView(props: ProfileCardProps) {
           handleDiscard(snapDirection);
         }
       }}>
+      <Animated.View
+        style={{
+          ...styles.likeHelperIcon,
+          transform: [{ scale: iconScale }],
+        }}>
+        <FontAwesome5Icon
+          size={64}
+          style={{ width: 64, height: 64 }}
+          name="heart"
+          color="black"
+          solid
+        />
+      </Animated.View>
       <Animated.View
         style={[
           styles.container,
@@ -107,6 +131,18 @@ export default function ProfileCardView(props: ProfileCardProps) {
           onDislike={handleDislike}
         />
       </Animated.View>
+      <Animated.View
+        style={{
+          ...styles.dislikeHelperIcon,
+          transform: [{ scale: iconScale }],
+        }}>
+        <FontAwesome5Icon
+          style={{ width: 64, height: 64 }}
+          size={64}
+          name="times"
+          color="black"
+        />
+      </Animated.View>
     </Interactable.View>
   );
 }
@@ -116,6 +152,15 @@ const styles = StyleSheet.create({
     width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
+    flexDirection: 'row',
+  },
+  likeHelperIcon: {
+    marginLeft: -32,
+    marginRight: 0,
+  },
+  dislikeHelperIcon: {
+    marginRight: -32,
+    marginLeft: 0,
   },
   container: {
     flex: 1,
