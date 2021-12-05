@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Image, StyleSheet, Text, View } from 'react-native';
 import CircleButtonIcon from './CircleButtonIcon';
 
 export interface ProfileCardContentProps {
   name: string;
-  profilePicture: string;
+  pictures: string[];
   age: number;
   description: string;
   location: string;
@@ -12,13 +12,25 @@ export interface ProfileCardContentProps {
   onDislike?: () => void;
 }
 export default function ProfileCardContent(props: ProfileCardContentProps) {
+  const [currentPictureIndex, setCurrentPictureIndex] = useState(0);
+  const currentPicture = props.pictures[currentPictureIndex];
+  function handleToggleOfPictures() {
+    const index = currentPictureIndex + 1;
+    if (index >= props.pictures.length) {
+      setCurrentPictureIndex(0);
+    } else {
+      setCurrentPictureIndex(index);
+    }
+  }
   return (
     <View style={styles.container}>
-      <Image
-        style={styles.image}
-        resizeMode="cover"
-        source={{ uri: props.profilePicture }}
-      />
+      <View onTouchStart={handleToggleOfPictures}>
+        <Image
+          style={styles.image}
+          resizeMode="cover"
+          source={{ uri: currentPicture }}
+        />
+      </View>
       <View style={styles.textContainer}>
         <Text style={styles.name}>
           {props.name}
