@@ -12,5 +12,6 @@ export default function ScreenView(props: ViewProps) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: 'rgba(127, 93, 240, 0.1)',
   },
 });
