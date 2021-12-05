@@ -155,11 +155,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   likeHelperIcon: {
-    marginLeft: -32,
+    marginLeft: -48,
     marginRight: 0,
   },
   dislikeHelperIcon: {
-    marginRight: -32,
+    marginRight: -48,
     marginLeft: 0,
   },
   container: {
