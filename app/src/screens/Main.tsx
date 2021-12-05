@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet } from 'react-native';
-import ProfileCard, { ProfileCardProps } from '../components/ProfileCard';
+import ProfileCard, { ProfileCardProps } from '../components/ProfileCardView';
 import ScreenView from '../components/ScreenView';
 
 const profiles: ProfileCardProps[] = [

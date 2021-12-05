@@ -17,7 +17,7 @@ export interface ProfileCardProps extends ProfileCardContentProps {
   onSwipe?: () => void;
   timeoutOnDiscard?: number;
 }
-export default function ProfileCard(props: ProfileCardProps) {
+export default function ProfileCardView(props: ProfileCardProps) {
   const inputRanges = [
     -(WindowWidth + WindowWidth / 2),
     0,
