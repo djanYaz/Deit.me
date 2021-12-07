@@ -1,11 +1,21 @@
 import React from 'react';
 import { StyleSheet, Text } from 'react-native';
 
+const defaultTintColor = '#b87cd9';
 export interface HobbyProps {
   name: string;
+  onPress?: () => void;
+  tintColor?: string;
 }
 export default function Hobby(props: HobbyProps) {
-  return <Text style={styles.hobby}>{props.name}</Text>;
+  const backgroundColor = {
+    backgroundColor: props.tintColor || defaultTintColor,
+  };
+  return (
+    <Text onPress={props.onPress} style={[styles.hobby, backgroundColor]}>
+      {props.name}
+    </Text>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -14,7 +24,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     borderRadius: 32,
     fontSize: 16,
-    backgroundColor: '#b87cd9',
     paddingVertical: 2,
     paddingHorizontal: 8,
     margin: 1,

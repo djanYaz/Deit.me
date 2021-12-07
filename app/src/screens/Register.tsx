@@ -1,15 +1,141 @@
 import React, { useRef, useState } from 'react';
-import { Animated, Dimensions, StyleSheet, View } from 'react-native';
+import { Animated, Dimensions, StyleSheet, Text, View } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 import CustomButton from '../components/CustomButton';
+import Hobby from '../components/Hobby';
 import ScreenView from '../components/ScreenView';
 import CustomTextInput from '../components/TextInput';
 import rootNavigation from '../rootNavigation';
 
+const defaultHobbies = [
+  '1.9TDI',
+  'Tesni P',
+  'Macki',
+  'BMW',
+  'Dupe',
+  'Cross',
+  'Drift',
+  'Cici',
+  // 'MMA',
+  // 'Cars',
+  // 'Macki',
+  // 'BMW',
+  // 'Dupe',
+  // 'Cross',
+  // 'Drift',
+  // 'Cici',
+  // 'MMA',
+  // 'Cars',
+  // 'Macki',
+  // 'BMW',
+  // 'Dupe',
+  // 'Cross',
+  // 'Drift',
+  // 'Cici',
+  // 'MMA',
+  // 'Cars',
+  // 'Macki',
+  // 'BMW',
+  // 'Dupe',
+  // 'Cross',
+  // 'Drift',
+  // 'Cici',
+  // 'MMA',
+  // 'Cars',
+  // 'Macki',
+  // 'BMW',
+  // 'Dupe',
+  // 'Cross',
+  // 'Drift',
+  // 'Cici',
+  // 'MMA',
+  // 'Cars',
+  // 'Macki',
+  // 'BMW',
+  // 'Dupe',
+  // 'Cross',
+  // 'Drift',
+  // 'Cici',
+  // 'MMA',
+  // 'Cars',
+  // 'Macki',
+  // 'BMW',
+  // 'Dupe',
+  // 'Cross',
+  // 'Drift',
+  // 'Cici',
+  // 'MMA',
+  // 'Cars',
+  // 'Macki',
+  // 'BMW',
+  // 'Dupe',
+  // 'Cross',
+  // 'Drift',
+  // 'Cici',
+  // 'MMA',
+  // 'Cars',
+  // 'Macki',
+  // 'BMW',
+  // 'Dupe',
+  // 'Cross',
+  // 'Drift',
+  // 'Cici',
+  // 'MMA',
+  // 'Cars',
+  // 'Macki',
+  // 'BMW',
+  // 'Dupe',
+  // 'Cross',
+  // 'Drift',
+  // 'Cici',
+  // 'MMA',
+  // 'Cars',
+  // 'Macki',
+  // 'BMW',
+  // 'Dupe',
+  // 'Cross',
+  // 'Drift',
+  // 'Cici',
+  // 'MMA',
+  // 'Cars',
+  // 'Macki',
+  // 'BMW',
+  // 'Dupe',
+  // 'Cross',
+  // 'Drift',
+  // 'Cici',
+  // 'MMA',
+  // 'Cars',
+  // 'Macki',
+  // 'BMW',
+  // 'Dupe',
+  // 'Cross',
+  // 'Drift',
+  // 'Cici',
+  // 'MMA',
+  // 'Cars',
+  // 'Macki',
+  // 'BMW',
+  // 'Dupe',
+  // 'Cross',
+  // 'Drift',
+  // 'Cici',
+  // 'MMA',
+  // 'Cars',
+];
+const slideAnimationDuration = 300;
+
 export default function Register() {
-  const parts = [renderPersonalInformationPath(), renderCredentialsPart()];
+  const [hobbies, setHobbies] = useState(defaultHobbies);
+  const [selectedHobbies, setSelectedHobbies] = useState<string[]>([]);
+  const parts = [
+    renderPersonalInformationPath(),
+    renderCredentialsPart(),
+    renderInfoPart(),
+    renderHobbies(),
+  ];
   const [registrationPart, setRegistrationPart] = useState(0);
   const animationX = useRef(new Animated.Value(0)).current;
-  const slideAnimationDuration = 300;
   const slideOutAnimation = Animated.sequence([
     Animated.timing(animationX, {
       toValue: -Dimensions.get('window').width,
@@ -19,14 +145,12 @@ export default function Register() {
     Animated.timing(animationX, {
       toValue: Dimensions.get('window').width,
       duration: 0,
-      delay: slideAnimationDuration,
       useNativeDriver: true,
     }),
   ]);
   const slideInAnimation = Animated.timing(animationX, {
     toValue: 0,
     duration: slideAnimationDuration,
-    delay: slideAnimationDuration,
     useNativeDriver: true,
   });
   function handleRegister() {
@@ -38,6 +162,20 @@ export default function Register() {
         slideInAnimation.start();
       });
     }
+  }
+
+  function handleSelectHobby(name: string, index: number) {
+    selectedHobbies.push(hobbies[index]);
+    setSelectedHobbies([...selectedHobbies]);
+    hobbies.splice(index, 1);
+    setHobbies([...hobbies]);
+  }
+
+  function handleDeselectHobby(name: string, index: number) {
+    selectedHobbies.splice(index, 1);
+    setSelectedHobbies([...selectedHobbies]);
+    hobbies.push(name);
+    setHobbies([...hobbies]);
   }
 
   function getRegisterButtonName() {
@@ -59,14 +197,42 @@ export default function Register() {
   function renderCredentialsPart() {
     return (
       <>
-        <CustomTextInput style={styles.input} placeholder="email" />
+        <CustomTextInput placeholder="email" />
         <CustomTextInput
           placeholder="password"
           textContentType="password"
           secureTextEntry
-          style={styles.input}
         />
       </>
+    );
+  }
+
+  function renderInfoPart() {
+    return <Text style={styles.title}>Now we'll add your interests...</Text>;
+  }
+
+  function renderHobbies() {
+    const hobbiesComponents = hobbies.map((hobby, index) => {
+      return (
+        <Hobby name={hobby} onPress={() => handleSelectHobby(hobby, index)} />
+      );
+    });
+    const selectedHobbiesComponents = selectedHobbies.map((hobby, index) => {
+      return (
+        <Hobby
+          name={hobby}
+          onPress={() => handleDeselectHobby(hobby, index)}
+          tintColor="black"
+        />
+      );
+    });
+    return (
+      <ScrollView style={styles.hobbiesScrollContainer}>
+        <View style={styles.hobbiesContainer}>
+          {selectedHobbiesComponents}
+          {hobbiesComponents}
+        </View>
+      </ScrollView>
     );
   }
 
@@ -83,15 +249,21 @@ export default function Register() {
 
   return (
     <ScreenView style={styles.container}>
+      <Text style={styles.title}>Deit.me</Text>
       {handleRenderOfPart()}
-      <CustomButton title={getRegisterButtonName()} onPress={handleRegister} />
+      <CustomButton
+        title={getRegisterButtonName()}
+        onPress={handleRegister}
+        style={styles.button}
+      />
     </ScreenView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    justifyContent: 'center',
+    justifyContent: 'space-between',
+    paddingVertical: 64,
     alignItems: 'center',
   },
   partContainer: {
@@ -100,5 +272,19 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  input: {},
+  title: {
+    fontSize: 48,
+  },
+  button: {
+    width: 200,
+  },
+  hobbiesContainer: {
+    flexWrap: 'wrap',
+    width: '100%',
+    flexDirection: 'row',
+    padding: 32,
+  },
+  hobbiesScrollContainer: {
+    height: '70%',
+  },
 });
