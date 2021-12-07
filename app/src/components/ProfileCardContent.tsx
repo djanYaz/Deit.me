@@ -1,6 +1,7 @@
 import React from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import CircleButtonIcon from './CircleButtonIcon';
+import Hobby from './Hobby';
 import { TabHeight } from './Tabs';
 import TapImageCorousel from './TapImageCarousel';
 
@@ -50,15 +51,11 @@ export default function ProfileCardContent(props: ProfileCardContentProps) {
     );
   }
 
-  function renderHobby(name: string) {
-    return <Text style={styles.hobby}>{name}</Text>;
-  }
-
   function renderHobbies() {
     return (
       <View style={styles.hobbyContainer}>
         {props.hobbies.map(hobby => {
-          return renderHobby(hobby);
+          return <Hobby name={hobby} />;
         })}
       </View>
     );
@@ -122,16 +119,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     margin: 12,
-  },
-  hobby: {
-    color: 'white',
-    textAlign: 'center',
-    borderRadius: 32,
-    fontSize: 16,
-    backgroundColor: '#b87cd9',
-    paddingVertical: 2,
-    paddingHorizontal: 8,
-    margin: 1,
   },
   hobbyContainer: {
     flexDirection: 'row',
