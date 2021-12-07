@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { GestureResponderEvent, Image, StyleSheet, View } from 'react-native';
-import { FastVibrate, preloadImages } from '../utils';
+import { FastVibrate } from '../utils';
 import LinearGradient from 'react-native-linear-gradient';
 
 export interface TapImageCorouselProps {
