@@ -48,7 +48,7 @@ export default function Tabs() {
         }}
       />
       <Tab.Screen
-        name="Main"
+        name="MatchTab"
         component={Main}
         options={{
           tabBarLabel: _props => null,

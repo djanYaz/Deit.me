@@ -9,6 +9,7 @@ import {
 import Register from './src/screens/Register';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Tabs from './src/components/Tabs';
+import { LogBox } from 'react-native';
 
 export const Stack = createNativeStackNavigator<RootStackParamList>();
 export const Tab = createBottomTabNavigator<RootTabParamList>();
@@ -21,12 +22,13 @@ const Screens = () => {
         headerShown: false,
       }}>
       <Stack.Screen name="Register" component={Register} />
-      <Stack.Screen name="Main" component={Tabs} />
+      <Stack.Screen name="MainScreen" component={Tabs} />
     </Stack.Navigator>
   );
 };
 
 const App = () => {
+  LogBox.ignoreAllLogs();
   return (
     <NavigationContainer ref={navigationRef}>
       <Screens />

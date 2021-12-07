@@ -7,7 +7,7 @@ import rootNavigation from '../rootNavigation';
 
 export default function Register() {
   function handleRegister() {
-    rootNavigation.reset('Main');
+    rootNavigation.reset('MainScreen');
   }
   return (
     <ScreenView style={styles.container}>

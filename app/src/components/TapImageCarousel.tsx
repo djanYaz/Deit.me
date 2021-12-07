@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { GestureResponderEvent, Image, StyleSheet, View } from 'react-native';
-import { FastVibrate, preloadImages } from '../utils';
+import { FastVibrate } from '../utils';
 
 export interface TapImageCorouselProps {
   imageUrls: string[];
@@ -11,7 +11,7 @@ export default function TapImageCorousel(props: TapImageCorouselProps) {
 
   //Preload images
   useEffect(() => {
-    preloadImages(props.imageUrls);
+    // preloadImages(props.imageUrls);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   //
@@ -30,7 +30,12 @@ export default function TapImageCorousel(props: TapImageCorouselProps) {
   function renderSelectorPoints() {
     return props.imageUrls.map((_, index) => {
       const backgroundColor = index === currentPictureIndex ? 'white' : 'grey';
-      return <View style={[styles.selectorPoint, { backgroundColor }]} />;
+      return (
+        <View
+          key={'image-selector-' + index}
+          style={[styles.selectorPoint, { backgroundColor }]}
+        />
+      );
     });
   }
 

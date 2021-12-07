@@ -25,3 +25,7 @@ export async function preloadImages(urlOfImages: string[]) {
 export function FastVibrate() {
   Vibration.vibrate(5);
 }
+
+export function getRandomArbitrary(min: number, max: number) {
+  return Math.random() * (max - min) + min;
+}
