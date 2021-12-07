@@ -13,6 +13,7 @@ export const TabHeight = _TabBottom + _TabHeight;
 export default function Tabs() {
   return (
     <Tab.Navigator
+      initialRouteName="MatchTab"
       backBehavior="none"
       screenOptions={{
         headerShown: false,

@@ -12,7 +12,7 @@ export default function TapImageCorousel(props: TapImageCorouselProps) {
 
   //Preload images
   useEffect(() => {
-    preloadImages(props.imageUrls);
+    // preloadImages(props.imageUrls);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   //
