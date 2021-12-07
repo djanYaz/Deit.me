@@ -217,6 +217,8 @@ dependencies {
     }
 
     implementation project(path: ":react-native-interactable")
+
+    implementation project(':react-native-linear-gradient')
 }
 
 // Run this once to be able to run the application with BUCK

@@ -34,7 +34,8 @@ export default function Main() {
       const picturesLen = getRandomArbitrary(1, 5);
       for (var i = 0; i < picturesLen; i++) {
         profile.pictures.push(
-          'https://picsum.photos/200/300?random=' + getRandomArbitrary(1, 20),
+          'https://picsum.photos/200/300?random=' +
+            Math.floor(getRandomArbitrary(1, 20)),
         );
       }
     });

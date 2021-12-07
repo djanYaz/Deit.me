@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { GestureResponderEvent, Image, StyleSheet, View } from 'react-native';
-import { FastVibrate } from '../utils';
+import { FastVibrate, preloadImages } from '../utils';
+import LinearGradient from 'react-native-linear-gradient';
 
 export interface TapImageCorouselProps {
   imageUrls: string[];
@@ -11,7 +12,7 @@ export default function TapImageCorousel(props: TapImageCorouselProps) {
 
   //Preload images
   useEffect(() => {
-    // preloadImages(props.imageUrls);
+    preloadImages(props.imageUrls);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   //
@@ -40,22 +41,25 @@ export default function TapImageCorousel(props: TapImageCorouselProps) {
   }
 
   return (
-    <View onTouchStart={handleToggleOfPictures}>
+    <LinearGradient
+      colors={['rgba(0,0,0,0)', 'rgba(0,0,0,0.2)']}
+      onTouchStart={handleToggleOfPictures}>
       <Image
-        style={styles.image}
+        style={[styles.image]}
         resizeMode="cover"
         source={{ uri: currentPicture }}
       />
       <View style={styles.selectorContainer}>{renderSelectorPoints()}</View>
-    </View>
+    </LinearGradient>
   );
 }
 
 const styles = StyleSheet.create({
   image: {
-    width: '100%',
-    height: undefined,
-    aspectRatio: 1,
+    height: 300,
+    flex: 1,
+    zIndex: -1,
+    width: undefined,
   },
   selectorContainer: {
     position: 'absolute',
