@@ -21,6 +21,7 @@ export default function CustomButton(
 
 const styles = StyleSheet.create({
   button: {
+    alignItems: 'center',
     backgroundColor: '#b87cd9',
     paddingVertical: 18,
     paddingHorizontal: 32,
