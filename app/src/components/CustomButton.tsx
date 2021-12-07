@@ -14,7 +14,7 @@ export default function CustomButton(
 ) {
   return (
     <TouchableOpacity {...props} style={[props.style, styles.button]}>
-      <Text style={styles.text}>Register</Text>
+      <Text style={styles.text}>{props.title}</Text>
     </TouchableOpacity>
   );
 }
