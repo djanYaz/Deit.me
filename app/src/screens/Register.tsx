@@ -1,133 +1,19 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Animated, Dimensions, StyleSheet, Text, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import CustomButton from '../components/CustomButton';
 import Hobby from '../components/Hobby';
 import ScreenView from '../components/ScreenView';
 import CustomTextInput from '../components/TextInput';
+import { API_URL } from '../constants';
 import rootNavigation from '../rootNavigation';
+import { makeRequest } from '../utils';
 
-const defaultHobbies = [
-  '1.9TDI',
-  'Tesni P',
-  'Macki',
-  'BMW',
-  'Dupe',
-  'Cross',
-  'Drift',
-  'Cici',
-  // 'MMA',
-  // 'Cars',
-  // 'Macki',
-  // 'BMW',
-  // 'Dupe',
-  // 'Cross',
-  // 'Drift',
-  // 'Cici',
-  // 'MMA',
-  // 'Cars',
-  // 'Macki',
-  // 'BMW',
-  // 'Dupe',
-  // 'Cross',
-  // 'Drift',
-  // 'Cici',
-  // 'MMA',
-  // 'Cars',
-  // 'Macki',
-  // 'BMW',
-  // 'Dupe',
-  // 'Cross',
-  // 'Drift',
-  // 'Cici',
-  // 'MMA',
-  // 'Cars',
-  // 'Macki',
-  // 'BMW',
-  // 'Dupe',
-  // 'Cross',
-  // 'Drift',
-  // 'Cici',
-  // 'MMA',
-  // 'Cars',
-  // 'Macki',
-  // 'BMW',
-  // 'Dupe',
-  // 'Cross',
-  // 'Drift',
-  // 'Cici',
-  // 'MMA',
-  // 'Cars',
-  // 'Macki',
-  // 'BMW',
-  // 'Dupe',
-  // 'Cross',
-  // 'Drift',
-  // 'Cici',
-  // 'MMA',
-  // 'Cars',
-  // 'Macki',
-  // 'BMW',
-  // 'Dupe',
-  // 'Cross',
-  // 'Drift',
-  // 'Cici',
-  // 'MMA',
-  // 'Cars',
-  // 'Macki',
-  // 'BMW',
-  // 'Dupe',
-  // 'Cross',
-  // 'Drift',
-  // 'Cici',
-  // 'MMA',
-  // 'Cars',
-  // 'Macki',
-  // 'BMW',
-  // 'Dupe',
-  // 'Cross',
-  // 'Drift',
-  // 'Cici',
-  // 'MMA',
-  // 'Cars',
-  // 'Macki',
-  // 'BMW',
-  // 'Dupe',
-  // 'Cross',
-  // 'Drift',
-  // 'Cici',
-  // 'MMA',
-  // 'Cars',
-  // 'Macki',
-  // 'BMW',
-  // 'Dupe',
-  // 'Cross',
-  // 'Drift',
-  // 'Cici',
-  // 'MMA',
-  // 'Cars',
-  // 'Macki',
-  // 'BMW',
-  // 'Dupe',
-  // 'Cross',
-  // 'Drift',
-  // 'Cici',
-  // 'MMA',
-  // 'Cars',
-  // 'Macki',
-  // 'BMW',
-  // 'Dupe',
-  // 'Cross',
-  // 'Drift',
-  // 'Cici',
-  // 'MMA',
-  // 'Cars',
-];
 const slideAnimationDuration = 300;
 
 export default function Register() {
-  const [hobbies, setHobbies] = useState(defaultHobbies);
-  const [selectedHobbies, setSelectedHobbies] = useState<string[]>([]);
+  const [hobbies, setHobbies] = useState<any[]>([]);
+  const [selectedHobbies, setSelectedHobbies] = useState<any[]>([]);
   const parts = [
     renderPersonalInformationPath(),
     renderCredentialsPart(),
@@ -153,6 +39,17 @@ export default function Register() {
     duration: slideAnimationDuration,
     useNativeDriver: true,
   });
+
+  useEffect(() => {
+    // Load hobbies
+    (async () => {
+      const response = await makeRequest(API_URL + 'api/hobby', 'GET');
+      if (response) {
+        setHobbies([...response.data]);
+      }
+    })();
+  }, []);
+
   function handleRegister() {
     if (registrationPart >= parts.length - 1) {
       rootNavigation.reset('MainScreen');
@@ -164,17 +61,17 @@ export default function Register() {
     }
   }
 
-  function handleSelectHobby(name: string, index: number) {
+  function handleSelectHobby(index: number) {
     selectedHobbies.push(hobbies[index]);
     setSelectedHobbies([...selectedHobbies]);
     hobbies.splice(index, 1);
     setHobbies([...hobbies]);
   }
 
-  function handleDeselectHobby(name: string, index: number) {
+  function handleDeselectHobby(index: number) {
     selectedHobbies.splice(index, 1);
     setSelectedHobbies([...selectedHobbies]);
-    hobbies.push(name);
+    hobbies.push([...selectedHobbies[index]]);
     setHobbies([...hobbies]);
   }
 
@@ -212,16 +109,16 @@ export default function Register() {
   }
 
   function renderHobbies() {
-    const hobbiesComponents = hobbies.map((hobby, index) => {
+    const hobbiesComponents = hobbies.map((item, index) => {
       return (
-        <Hobby name={hobby} onPress={() => handleSelectHobby(hobby, index)} />
+        <Hobby name={item.hobby} onPress={() => handleSelectHobby(index)} />
       );
     });
-    const selectedHobbiesComponents = selectedHobbies.map((hobby, index) => {
+    const selectedHobbiesComponents = selectedHobbies.map((item, index) => {
       return (
         <Hobby
-          name={hobby}
-          onPress={() => handleDeselectHobby(hobby, index)}
+          name={item.hobby}
+          onPress={() => handleDeselectHobby(index)}
           tintColor="black"
         />
       );
