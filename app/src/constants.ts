@@ -8,3 +8,4 @@ export const defaultShadow = {
   shadowRadius: 3.5,
   elevation: 5,
 };
+export const API_URL = 'http://95.87.221.239:8000/';

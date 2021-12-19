@@ -1,3 +1,4 @@
+import { API_URL } from './constants';
 import { makeRequest } from './utils';
 
 export interface UserRegisterDTO {
@@ -16,11 +17,11 @@ export interface UserCredentials {
   id: number;
   email: string;
 }
-const API_URL = 'http://95.87.221.239:8000/auth/';
+
 class User {
   private userCredentials: UserCredentials | undefined;
   async login(email: string, password: string) {
-    const response = await makeRequest(API_URL + 'signin', 'POST', {
+    const response = await makeRequest(API_URL + 'auth/signin', 'POST', {
       email,
       password,
     });
@@ -34,7 +35,7 @@ class User {
 
   async register(info: UserRegisterDTO) {
     try {
-      const response = await makeRequest(API_URL + 'signup', 'POST', info);
+      const response = await makeRequest(API_URL + 'auth/signup', 'POST', info);
       if (response?.status === 200) {
         // this.userCredentials = { ...json };
         return response.data;
