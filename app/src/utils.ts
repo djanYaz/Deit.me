@@ -1,4 +1,5 @@
 import { Image, Vibration } from 'react-native';
+import { UserCredentials } from './user';
 
 export async function preloadImages(urlOfImages: string[]) {
   // an array of urls of images
@@ -34,13 +35,13 @@ export async function makeRequest(
   url: string,
   method: 'POST' | 'GET',
   data?: any,
-  token?: string,
+  token?: UserCredentials,
 ) {
   try {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
     if (token) {
-      headers.append('Authorization', token);
+      headers.append('Authorization', `${token.type} ${token.token}`);
     }
     const body = (data && JSON.stringify(data)) || '';
     const response = await fetch(url, {
