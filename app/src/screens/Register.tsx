@@ -274,6 +274,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 48,
+    color: 'grey',
   },
   button: {
     width: 200,

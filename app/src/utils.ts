@@ -29,3 +29,29 @@ export function FastVibrate() {
 export function getRandomArbitrary(min: number, max: number) {
   return Math.random() * (max - min) + min;
 }
+
+export async function makeRequest(
+  url: string,
+  method: 'POST' | 'GET',
+  data?: any,
+  token?: string,
+) {
+  try {
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    if (token) {
+      headers.append('Authorization', token);
+    }
+    const body = (data && JSON.stringify(data)) || '';
+    const response = await fetch(url, {
+      body,
+      method,
+      headers,
+    });
+    const json = await response.json();
+    return { status: response.status, data: json };
+  } catch (error) {
+    console.error('Network error:', error);
+    return undefined;
+  }
+}
