@@ -37,6 +37,7 @@ export default function Main() {
   async function handleNewProfile() {
     console.log('getting new profile');
     setLoading(true);
+    setProfile(undefined);
     const newProfile = await makeRequest(
       API_URL + 'api/browse?shouldMatchHobbies=0',
       'GET',
