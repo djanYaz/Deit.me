@@ -2,14 +2,14 @@ import { API_URL } from './constants';
 import { makeRequest } from './utils';
 
 export interface UserRegisterDTO {
-  email: string;
-  password: string;
-  firstName: string;
-  lastName: string;
-  phoneNumber: string;
-  preference: string;
-  gender: string;
-  hobbies: { [id: string]: string };
+  email?: string;
+  password?: string;
+  firstName?: string;
+  lastName?: string;
+  phoneNumber?: string;
+  preference?: string;
+  gender?: string;
+  hobbies?: { [id: string]: string };
 }
 export interface UserCredentials {
   token: string;

@@ -5,13 +5,16 @@ import CustomButton from '../components/CustomButton';
 import Hobby from '../components/Hobby';
 import ScreenView from '../components/ScreenView';
 import CustomTextInput from '../components/TextInput';
+import ToggleList from '../components/ToggleList';
 import { API_URL } from '../constants';
 import rootNavigation from '../rootNavigation';
+import { UserRegisterDTO } from '../user';
 import { makeRequest } from '../utils';
 
 const slideAnimationDuration = 300;
 
 export default function Register() {
+  const [registrationInfo, setRegistrationInfo] = useState<UserRegisterDTO>({});
   const [hobbies, setHobbies] = useState<any[]>([]);
   const [selectedHobbies, setSelectedHobbies] = useState<any[]>([]);
   const parts = [
@@ -61,11 +64,16 @@ export default function Register() {
     }
   }
 
+  function handleBack() {
+    setRegistrationPart(registrationPart - 1);
+  }
+
   function handleSelectHobby(index: number) {
     selectedHobbies.push(hobbies[index]);
     setSelectedHobbies([...selectedHobbies]);
     hobbies.splice(index, 1);
     setHobbies([...hobbies]);
+    // setRegistrationInfo({ ...registrationInfo });
   }
 
   function handleDeselectHobby(index: number) {
@@ -79,14 +87,54 @@ export default function Register() {
     return registrationPart >= parts.length - 1 ? 'Register' : 'Next';
   }
 
+  function handleTextInput(text: string, key?: string) {
+    // console.log(text, key);
+    if (!key) {
+      return;
+    }
+    const entry = { [key]: text };
+    const info = { ...registrationInfo, ...entry };
+    console.log('info', info);
+    setRegistrationInfo(info);
+  }
+
   function renderPersonalInformationPath() {
     return (
       <>
-        <CustomTextInput placeholder="First name" />
-        <CustomTextInput placeholder="Last name" />
-        <CustomTextInput placeholder="Date of birth" />
-        <CustomTextInput placeholder="Gender" />
-        <CustomTextInput placeholder="Sexuality" />
+        <CustomTextInput
+          onChangeText={handleTextInput}
+          placeholder="First name"
+          id="firstName"
+          value={registrationInfo.firstName}
+        />
+        <CustomTextInput
+          onChangeText={handleTextInput}
+          placeholder="Last name"
+          id="lastName"
+          value={registrationInfo.lastName}
+        />
+        {/* <CustomTextInput
+          onChangeText={handleTextInput}
+          placeholder="Gender"
+          id="gender"
+          value={registrationInfo.gender}
+        /> */}
+        <ToggleList
+          style={styles.input}
+          title="Gender"
+          list={['male', 'female']}
+        />
+        {/* <CustomTextInput
+          onChangeText={handleTextInput}
+          placeholder="Sexual Preference"
+          id="preference"
+          value={registrationInfo.preference}
+        /> */}
+        <ToggleList
+          style={styles.input}
+          title="Sexual Preference"
+          list={['male', 'female']}
+        />
       </>
     );
   }
@@ -94,9 +142,17 @@ export default function Register() {
   function renderCredentialsPart() {
     return (
       <>
-        <CustomTextInput placeholder="email" />
         <CustomTextInput
-          placeholder="password"
+          onChangeText={handleTextInput}
+          id="email"
+          value={registrationInfo.email}
+          placeholder="Email"
+        />
+        <CustomTextInput
+          placeholder="Password"
+          onChangeText={handleTextInput}
+          id="password"
+          value={registrationInfo.password}
           textContentType="password"
           secureTextEntry
         />
@@ -148,11 +204,19 @@ export default function Register() {
     <ScreenView style={styles.container}>
       <Text style={styles.title}>Deit.me</Text>
       {handleRenderOfPart()}
-      <CustomButton
-        title={getRegisterButtonName()}
-        onPress={handleRegister}
-        style={styles.button}
-      />
+      <View style={styles.buttonContainer}>
+        <CustomButton
+          title="Back"
+          disabled={registrationPart === 0}
+          onPress={handleBack}
+          style={styles.button}
+        />
+        <CustomButton
+          title={getRegisterButtonName()}
+          onPress={handleRegister}
+          style={styles.button}
+        />
+      </View>
     </ScreenView>
   );
 }
@@ -174,7 +238,11 @@ const styles = StyleSheet.create({
     color: 'grey',
   },
   button: {
-    width: 200,
+    width: 150,
+    marginHorizontal: 6,
+  },
+  buttonContainer: {
+    flexDirection: 'row',
   },
   hobbiesContainer: {
     flexWrap: 'wrap',
@@ -184,5 +252,8 @@ const styles = StyleSheet.create({
   },
   hobbiesScrollContainer: {
     height: '70%',
+  },
+  input: {
+    width: '80%',
   },
 });

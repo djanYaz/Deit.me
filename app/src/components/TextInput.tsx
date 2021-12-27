@@ -1,11 +1,21 @@
 import React from 'react';
 import { StyleSheet, TextInput, TextInputProps } from 'react-native';
 
-export default function CustomTextInput(props: TextInputProps) {
+export interface CustomTextInputProps extends TextInputProps {
+  id?: string;
+  onChangeText?: (text: string, id?: string) => void;
+}
+export default function CustomTextInput(props: CustomTextInputProps) {
+  function handleTextInput(text: string) {
+    if (props.onChangeText) {
+      props.onChangeText(text, props.id);
+    }
+  }
   return (
     <TextInput
       placeholderTextColor="grey"
       {...props}
+      onChangeText={handleTextInput}
       style={[props.style, styles.input]}
     />
   );

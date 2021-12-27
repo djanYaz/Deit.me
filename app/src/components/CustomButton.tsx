@@ -8,13 +8,18 @@ import {
 
 export interface CustomButtonProps {
   title: string;
+  tintColor?: string;
 }
 export default function CustomButton(
   props: TouchableOpacityProps & CustomButtonProps,
 ) {
   return (
-    <TouchableOpacity {...props} style={[props.style, styles.button]}>
-      <Text style={styles.text}>{props.title}</Text>
+    <TouchableOpacity
+      {...props}
+      style={[styles.button, props.style, props.disabled && styles.disabled]}>
+      <Text style={[styles.text, { color: props.tintColor }]}>
+        {props.title}
+      </Text>
     </TouchableOpacity>
   );
 }
@@ -26,6 +31,9 @@ const styles = StyleSheet.create({
     paddingVertical: 18,
     paddingHorizontal: 32,
     borderRadius: 10,
+  },
+  disabled: {
+    opacity: 0.7,
   },
   text: {
     color: 'white',
