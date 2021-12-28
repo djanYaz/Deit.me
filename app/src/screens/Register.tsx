@@ -171,7 +171,7 @@ export default function Register() {
           style={styles.input}
           title="Sexual Preference"
           onChange={v => handleTextInput(v, 'preference')}
-          list={['male', 'female']}
+          list={['men', 'women']}
         />
       </>
     );
