@@ -14,12 +14,17 @@ export default function ToggleList(props: ToggleListProps) {
   const [selectedIndex, setSelectedIndex] = useState<number>(
     props.deselect ? -1 : 0,
   );
+  useEffect(() => {
+    if (props.onChange && !props.deselect) {
+      props.onChange(list[0]);
+    }
+  }, []);
 
   useEffect(() => {
     if (props.onChange) {
       props.onChange(list[selectedIndex]);
     }
-  }, [selectedIndex, props, list]);
+  }, [selectedIndex]);
 
   function handleSelect(index: number) {
     if (index === selectedIndex && props.deselect) {
@@ -31,7 +36,6 @@ export default function ToggleList(props: ToggleListProps) {
   }
 
   function render() {
-    console.log(selectedIndex);
     const listComponents = list.map((item, index) => {
       return (
         <CustomButton

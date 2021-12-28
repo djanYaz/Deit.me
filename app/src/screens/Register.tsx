@@ -8,12 +8,26 @@ import CustomTextInput from '../components/TextInput';
 import ToggleList from '../components/ToggleList';
 import rootNavigation from '../rootNavigation';
 import hobbyService from '../services/hobby';
+import user from '../services/user';
 import { IHobby, UserRegisterDTO } from '../types';
+import { hobbyListToFlatMap } from '../utils';
 
 const slideAnimationDuration = 300;
-
+const defaultRegistrationInfo: UserRegisterDTO = {
+  email: undefined,
+  firstName: undefined,
+  gender: 'male',
+  hobbies: undefined,
+  lastName: undefined,
+  password: undefined,
+  phoneNumber: undefined,
+  preference: 'male',
+};
 export default function Register() {
-  const [registrationInfo, setRegistrationInfo] = useState<UserRegisterDTO>({});
+  const [error, setError] = useState<string | undefined>(undefined);
+  const [registrationInfo, setRegistrationInfo] = useState<UserRegisterDTO>(
+    defaultRegistrationInfo,
+  );
   const [hobbies, setHobbies] = useState<Array<IHobby>>([]);
   const [selectedHobbies, setSelectedHobbies] = useState<Array<IHobby>>([]);
   const parts = [
@@ -52,9 +66,30 @@ export default function Register() {
     })();
   }, []);
 
-  function handleRegister() {
+  async function handleRegisterService() {
+    const info = {
+      ...registrationInfo,
+      hobbies: hobbyListToFlatMap(selectedHobbies),
+    };
+    // Check for unfilled data
+    for (var value of Object.values(info)) {
+      if (value === undefined) {
+        setError('Please enter all input field');
+        return false;
+      }
+    }
+    // Clear error message
+    setError(undefined);
+    console.log('Registering:', info);
+    return await user.register(info);
+  }
+
+  async function handleRegister() {
     if (registrationPart >= parts.length - 1) {
-      rootNavigation.reset('MainScreen');
+      const response = await handleRegisterService();
+      if (response) {
+        rootNavigation.reset('MainScreen');
+      }
     } else {
       slideOutAnimation.start(() => {
         setRegistrationPart(registrationPart + 1);
@@ -64,7 +99,11 @@ export default function Register() {
   }
 
   function handleBack() {
-    setRegistrationPart(registrationPart - 1);
+    if (registrationPart <= 0) {
+      rootNavigation.navigate('Login');
+    } else {
+      setRegistrationPart(registrationPart - 1);
+    }
   }
 
   function handleSelectHobby(index: number) {
@@ -86,13 +125,12 @@ export default function Register() {
   }
 
   function handleTextInput(text: string, key?: string) {
-    // console.log(text, key);
     if (!key) {
       return;
     }
     const entry = { [key]: text };
     const info = { ...registrationInfo, ...entry };
-    console.log('info', info);
+    // console.log('info', info);
     setRegistrationInfo(info);
   }
 
@@ -120,6 +158,7 @@ export default function Register() {
         <ToggleList
           style={styles.input}
           title="Gender"
+          onChange={v => handleTextInput(v, 'gender')}
           list={['male', 'female']}
         />
         {/* <CustomTextInput
@@ -131,6 +170,7 @@ export default function Register() {
         <ToggleList
           style={styles.input}
           title="Sexual Preference"
+          onChange={v => handleTextInput(v, 'preference')}
           list={['male', 'female']}
         />
       </>
@@ -145,6 +185,12 @@ export default function Register() {
           id="email"
           value={registrationInfo.email}
           placeholder="Email"
+        />
+        <CustomTextInput
+          onChangeText={handleTextInput}
+          id="phoneNumber"
+          value={registrationInfo.phoneNumber}
+          placeholder="Phone Number"
         />
         <CustomTextInput
           placeholder="Password"
@@ -201,14 +247,10 @@ export default function Register() {
   return (
     <ScreenView style={styles.container}>
       <Text style={styles.title}>Deit.me</Text>
+      <Text style={styles.errorText}>{error}</Text>
       {handleRenderOfPart()}
       <View style={styles.buttonContainer}>
-        <CustomButton
-          title="Back"
-          disabled={registrationPart === 0}
-          onPress={handleBack}
-          style={styles.button}
-        />
+        <CustomButton title="Back" onPress={handleBack} style={styles.button} />
         <CustomButton
           title={getRegisterButtonName()}
           onPress={handleRegister}
@@ -253,5 +295,9 @@ const styles = StyleSheet.create({
   },
   input: {
     width: '80%',
+  },
+  errorText: {
+    color: 'red',
+    fontWeight: 'bold',
   },
 });

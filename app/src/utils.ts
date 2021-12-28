@@ -64,3 +64,9 @@ export function hobbyListToFlatMap(hobbyList: Array<IHobby>) {
   }
   return flatMap;
 }
+
+export function isEmptyObject(o: any) {
+  return Object.keys(o).every(function (x) {
+    return o[x] === '' || o[x] === null;
+  });
+}
