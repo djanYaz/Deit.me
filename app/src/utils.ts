@@ -1,5 +1,5 @@
 import { Image, Vibration } from 'react-native';
-import { UserCredentials } from './user';
+import { IHobby, UserCredentials } from './types';
 
 export async function preloadImages(urlOfImages: string[]) {
   // an array of urls of images
@@ -55,4 +55,12 @@ export async function makeRequest(
     console.error('Network error:', error);
     return undefined;
   }
+}
+
+export function hobbyListToFlatMap(hobbyList: Array<IHobby>) {
+  var flatMap: { [id: string]: string } = {};
+  for (var h of hobbyList) {
+    flatMap[String(h.id)] = h.hobby;
+  }
+  return flatMap;
 }

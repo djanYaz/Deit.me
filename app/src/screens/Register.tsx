@@ -8,15 +8,15 @@ import CustomTextInput from '../components/TextInput';
 import ToggleList from '../components/ToggleList';
 import { API_URL } from '../constants';
 import rootNavigation from '../rootNavigation';
-import { UserRegisterDTO } from '../user';
+import { IHobby, UserRegisterDTO } from '../types';
 import { makeRequest } from '../utils';
 
 const slideAnimationDuration = 300;
 
 export default function Register() {
   const [registrationInfo, setRegistrationInfo] = useState<UserRegisterDTO>({});
-  const [hobbies, setHobbies] = useState<any[]>([]);
-  const [selectedHobbies, setSelectedHobbies] = useState<any[]>([]);
+  const [hobbies, setHobbies] = useState<Array<IHobby>>([]);
+  const [selectedHobbies, setSelectedHobbies] = useState<Array<IHobby>>([]);
   const parts = [
     renderPersonalInformationPath(),
     renderCredentialsPart(),
@@ -73,13 +73,12 @@ export default function Register() {
     setSelectedHobbies([...selectedHobbies]);
     hobbies.splice(index, 1);
     setHobbies([...hobbies]);
-    // setRegistrationInfo({ ...registrationInfo });
   }
 
   function handleDeselectHobby(index: number) {
     selectedHobbies.splice(index, 1);
     setSelectedHobbies([...selectedHobbies]);
-    hobbies.push([...selectedHobbies[index]]);
+    hobbies.push(selectedHobbies[index]);
     setHobbies([...hobbies]);
   }
 

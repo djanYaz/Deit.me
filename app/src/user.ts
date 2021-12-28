@@ -1,22 +1,6 @@
 import { API_URL } from './constants';
+import { UserCredentials, UserRegisterDTO } from './types';
 import { makeRequest } from './utils';
-
-export interface UserRegisterDTO {
-  email?: string;
-  password?: string;
-  firstName?: string;
-  lastName?: string;
-  phoneNumber?: string;
-  preference?: string;
-  gender?: string;
-  hobbies?: { [id: string]: string };
-}
-export interface UserCredentials {
-  token: string;
-  type: 'Bearer';
-  id: number;
-  email: string;
-}
 
 class User {
   private userCredentials: UserCredentials | undefined;
