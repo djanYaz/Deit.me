@@ -4,7 +4,7 @@ import CustomButton from '../components/CustomButton';
 import ScreenView from '../components/ScreenView';
 import CustomTextInput from '../components/TextInput';
 import rootNavigation from '../rootNavigation';
-import user from '../user';
+import user from '../services/user';
 
 export default function Login() {
   const [email, setEmail] = useState('');

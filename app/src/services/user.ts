@@ -1,6 +1,6 @@
-import { API_URL } from './constants';
-import { UserCredentials, UserRegisterDTO } from './types';
-import { makeRequest } from './utils';
+import { API_URL } from '../constants';
+import { UserCredentials, UserRegisterDTO } from '../types';
+import { makeRequest } from '../utils';
 
 class User {
   private userCredentials: UserCredentials | undefined;

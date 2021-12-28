@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 import ProfileCard, { ProfileCardProps } from '../components/ProfileCardView';
 import ScreenView from '../components/ScreenView';
 import { API_URL } from '../constants';
-import user from '../user';
+import user from '../services/user';
 import { makeRequest } from '../utils';
 //TODO: Refactor
 export interface ProfileDTO {

@@ -6,10 +6,9 @@ import Hobby from '../components/Hobby';
 import ScreenView from '../components/ScreenView';
 import CustomTextInput from '../components/TextInput';
 import ToggleList from '../components/ToggleList';
-import { API_URL } from '../constants';
 import rootNavigation from '../rootNavigation';
+import hobbyService from '../services/hobby';
 import { IHobby, UserRegisterDTO } from '../types';
-import { makeRequest } from '../utils';
 
 const slideAnimationDuration = 300;
 
@@ -46,7 +45,7 @@ export default function Register() {
   useEffect(() => {
     // Load hobbies
     (async () => {
-      const response = await makeRequest(API_URL + 'api/hobby', 'GET');
+      const response = await hobbyService.getAll();
       if (response) {
         setHobbies([...response.data]);
       }
