@@ -9,7 +9,7 @@ import { makeRequest } from '../utils';
 export interface ProfileDTO {
   token: string;
   user: {
-    id: 6;
+    id: number;
     firstName: string;
     lastName: string;
     gender: string;
@@ -18,8 +18,12 @@ export interface ProfileDTO {
     hobby: { id: number; hobby: string }[];
   };
 }
+interface ProfileData {
+  profileDto: ProfileDTO;
+  pictures: string[];
+}
 export default function Main() {
-  const [profile, setProfile] = useState<ProfileDTO | undefined>();
+  const [profile, setProfile] = useState<ProfileData | undefined>();
   const [loading, setLoading] = useState(false);
   // Fill in random pictures
   // useEffect(() => {
@@ -45,7 +49,17 @@ export default function Main() {
       user.getCredentials(),
     );
     if (newProfile) {
-      setProfile({ ...newProfile.data });
+      const profileUser = { ...newProfile.data } as ProfileDTO;
+
+      const pictures = await makeRequest(
+        API_URL + `api/user/pictures/all?userId=${profileUser.user.id}`,
+        'GET',
+        undefined,
+        user.getCredentials(),
+      );
+      if (pictures) {
+        setProfile({ profileDto: profileUser, pictures: pictures.data });
+      }
     }
   }
   // Load initial profile
@@ -64,14 +78,14 @@ export default function Main() {
   }
 
   function renderProfiles() {
-    const profileUser = profile?.user;
+    const profileUser = profile?.profileDto.user;
     if (profileUser === undefined) {
       return null;
     }
     const _profile: ProfileCardProps = {
       name: `${profileUser.firstName} ${profileUser?.lastName}`,
       hobbies: profileUser.hobby.map(h => h.hobby),
-      pictures: [],
+      pictures: profile?.pictures || [],
       description: profileUser.description,
       location: '',
       age: 0,
