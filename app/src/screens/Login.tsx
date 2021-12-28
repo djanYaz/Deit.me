@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import CustomButton from '../components/CustomButton';
 import ScreenView from '../components/ScreenView';
@@ -10,6 +10,17 @@ export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string | undefined>();
+
+  // Check local storage for user credentials
+  useEffect(() => {
+    (async () => {
+      const localCredentials = await user.readLocalCredentials();
+      if (localCredentials) {
+        rootNavigation.reset('MainScreen');
+      }
+    })();
+  }, []);
+
   function handleRegister() {
     rootNavigation.navigate('Register');
   }
@@ -18,7 +29,7 @@ export default function Login() {
     const response = await user.login(email, password);
     if (response) {
       setError(undefined);
-      rootNavigation.navigate('MainScreen');
+      rootNavigation.reset('MainScreen');
     } else {
       setError('Невалиден email или парола');
     }

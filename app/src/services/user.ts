@@ -38,6 +38,19 @@ class User {
     await AsyncStorage.removeItem('user');
   }
 
+  async readLocalCredentials() {
+    try {
+      const read = await AsyncStorage.getItem('user');
+      if (read) {
+        const parsed = JSON.parse(read);
+        this.userCredentials = { ...parsed };
+        return { ...this.userCredentials };
+      }
+    } catch (error) {
+      return false;
+    }
+  }
+
   getCredentials() {
     return this.userCredentials;
   }
