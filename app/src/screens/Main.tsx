@@ -4,7 +4,7 @@ import ProfileCard, { ProfileCardProps } from '../components/ProfileCardView';
 import ScreenView from '../components/ScreenView';
 import { API_URL } from '../constants';
 import user from '../services/user';
-import { makeRequest } from '../utils';
+import { getRandomArbitrary, makeRequest } from '../utils';
 //TODO: Refactor
 export interface ProfileDTO {
   token: string;
@@ -57,7 +57,14 @@ export default function Main() {
         undefined,
         user.getCredentials(),
       );
-      if (pictures) {
+      if (pictures && pictures.data.length <= 0) {
+        const picturesLen = getRandomArbitrary(1, 5);
+        for (var i = 0; i < picturesLen; i++) {
+          pictures.data.push(
+            'https://picsum.photos/200/300?random=' +
+              Math.floor(getRandomArbitrary(1, 20)),
+          );
+        }
         setProfile({ profileDto: profileUser, pictures: pictures.data });
       }
     }
