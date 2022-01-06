@@ -6,6 +6,7 @@ export interface IHobby {
 export interface UserRegisterDTO {
   email?: string;
   password?: string;
+  repeatedPassword?: string;
   firstName?: string;
   lastName?: string;
   phoneNumber?: string;

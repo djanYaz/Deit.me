@@ -78,6 +78,11 @@ export default function Register() {
         return false;
       }
     }
+
+    if(info.password!=info.repeatedPassword) {
+        setError('Passwords are not matching');
+        return false;
+    }
     // Clear error message
     setError(undefined);
     console.log('Registering:', info);
@@ -199,6 +204,14 @@ export default function Register() {
           value={registrationInfo.password}
           textContentType="password"
           secureTextEntry
+        />
+         <CustomTextInput
+           placeholder="Repeat Password"
+           onChangeText={handleTextInput}
+           id="repeatedPassword"
+           value={registrationInfo.repeatedPassword}
+           textContentType="password"
+           secureTextEntry
         />
       </>
     );
